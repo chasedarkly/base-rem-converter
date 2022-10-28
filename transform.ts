@@ -8,6 +8,8 @@ const transformPlugin: Plugin = {
     decl.value = decl.value.replace(
       /([+-]?([0-9]*[.])?[0-9]+)rem/g,
       (match, p1) => {
+        // adding `r__em` is a silly hack to avoid this getting rematched infinitely.
+        // doing a folderwide find and replace on `r__em` is easy.
         const newValue = `${(+p1 * 10) / 16}r__em`;
         console.log(`Converting ${match} to ${newValue}`);
         return newValue;
